@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<title>STAT3888 · UPF × PA × Obesity</title>
+<style>
+:root{
+  --ink:#0A1217; --ink2:#0F1A21;
+  --blue:#0063E0; --blue2:#1876F2; --green:#30A34C; --amber:#E6A817; --red:#E63B40; --purple:#2921F2;
+  --bg:#FFFFFF; --bgsoft:#F2F5F7;
+  --text:#0A1317; --text2:#444950; --text3:#5D6C7B; --muted:#8594A4; --ondark:#CED0D4;
+  --line:#DEE3E8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  color:var(--text); background:#e8ebee; line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+}
+.page{width:1440px;margin:0 auto;background:var(--bg);box-shadow:0 0 40px rgba(10,18,23,.12);}
+.wrap{width:1280px;margin:0 auto;}
+
+/* ============ Top chrome ============ */
+.promo{background:var(--ink);color:#fff;height:44px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;}
+.promo .dot{color:var(--muted);}
+.nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;padding:0 48px;gap:0;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-mark{width:36px;height:36px;background:var(--blue);border-radius:8px;}
+.logo-text{display:flex;flex-direction:column;gap:2px;line-height:1.1;}
+.logo-text b{font-size:14px;font-weight:700;}
+.logo-text span{font-size:11px;color:var(--text3);}
+.nav-links{display:flex;gap:36px;margin-left:auto;margin-right:auto;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text3);text-decoration:none;cursor:pointer;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--text);}
+.nav-cta{display:flex;align-items:center;gap:12px;}
+.search{display:flex;align-items:center;gap:8px;background:var(--bgsoft);height:40px;border-radius:100px;padding:0 16px;font-size:13px;color:var(--text3);}
+.search svg{flex:0 0 auto;}
+.cta-btn{background:#000;color:#fff;height:40px;border-radius:100px;padding:0 20px;font-size:14px;font-weight:700;display:flex;align-items:center;text-decoration:none;}
+.lang-toggle{display:flex;background:var(--bgsoft);border-radius:100px;padding:3px;border:1px solid var(--line);}
+.lang-toggle button{border:none;background:transparent;font-size:12px;font-weight:600;color:var(--text3);padding:6px 12px;border-radius:100px;cursor:pointer;}
+.lang-toggle button.on{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(10,18,23,.15);font-weight:700;}
+
+/* ============ Shared section primitives ============ */
+section{padding:80px 0;}
+.eyebrow{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.5px;text-transform:uppercase;}
+h2{font-size:32px;font-weight:500;line-height:1.25;color:var(--text);}
+.lead{font-size:15px;line-height:1.6;color:var(--text2);}
+.pill{display:inline-flex;align-items:center;gap:6px;height:28px;border-radius:100px;padding:0 12px;font-size:11px;font-weight:700;color:#fff;}
+.pill.blue{background:var(--blue);} .pill.green{background:var(--green);}
+.pill.dark{background:var(--ink);} .pill.amber{background:var(--amber);}
+.card{background:var(--bgsoft);border-radius:24px;padding:32px;}
+.dark-card{background:var(--ink2);border-radius:24px;padding:32px;color:#fff;}
+
+/* ============ Hero ============ */
+.hero{display:flex;gap:64px;padding:80px 48px;background:#fff;}
+.hero-left{width:720px;display:flex;flex-direction:column;gap:24px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--bgsoft);border-radius:100px;height:32px;padding:0 14px;font-size:13px;font-weight:700;color:var(--text);width:max-content;}
+.hero-tag i{width:8px;height:8px;border-radius:50%;background:var(--blue);}
+.hero h1{font-size:56px;font-weight:500;line-height:1.15;color:var(--text);}
+.hero-sub{font-size:18px;line-height:1.55;color:var(--text2);}
+.hero-ctas{display:flex;gap:12px;margin-top:8px;}
+.btn{height:52px;border-radius:100px;padding:0 28px;font-size:15px;font-weight:700;display:flex;align-items:center;text-decoration:none;cursor:pointer;}
+.btn-primary{background:#000;color:#fff;}
+.btn-ghost{border:1.5px solid var(--ink);color:var(--text);}
+.hero-right{width:512px;background:var(--bgsoft);border-radius:32px;padding:32px;}
+.visual-head{display:flex;align-items:center;justify-content:space-between;height:24px;}
+.visual-eyebrow{font-size:11px;font-weight:700;color:var(--text);}
+.visual-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:100px;height:24px;padding:0 10px;font-size:11px;font-weight:700;color:var(--text);}
+.visual-pill i{width:6px;height:6px;border-radius:50%;background:var(--green);}
+.chart-block{background:#fff;border-radius:24px;padding:20px 16px;margin-top:16px;}
+.chart-title{font-size:14px;font-weight:700;color:var(--text);}
+.bars{display:flex;align-items:flex-end;gap:6px;height:200px;padding-top:12px;}
+.bars .b{width:24px;background:var(--blue);border-radius:3px 3px 0 0;}
+.axis{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);height:14px;margin-top:8px;}
+.axis .med{color:var(--blue);font-weight:700;}
+.axis .mean{color:var(--text3);}
+.chart-stats{display:flex;gap:0;background:var(--bgsoft);border-radius:16px;padding:16px 20px;margin-top:16px;}
+.stat{display:flex;flex-direction:column;gap:2px;flex:1;}
+.stat .l{font-size:11px;color:var(--text3);}
+.stat .v{font-size:20px;font-weight:700;color:var(--text);}
+
+/* ============ Section headers ============ */
+.sec-head{display:flex;flex-direction:column;gap:16px;margin-bottom:48px;}
+.sec-head .lead{max-width:880px;}
+
+/* ============ Research question ============ */
+.rq{background:var(--bgsoft);}
+.rq-grid{display:flex;gap:24px;}
+.rq-main{background:#fff;border:1px solid var(--line);border-radius:24px;padding:40px;flex:1;display:flex;flex-direction:column;gap:24px;}
+.rq-backup{background:var(--ink);border-radius:24px;padding:40px;width:380px;display:flex;flex-direction:column;gap:24px;}
+.rq-main h3{font-size:24px;font-weight:500;line-height:1.35;color:var(--text);max-width:540px;}
+.rq-main p{font-size:15px;line-height:1.6;color:var(--text2);max-width:540px;}
+.rq-backup h3{font-size:18px;font-weight:500;line-height:1.4;color:#fff;max-width:300px;}
+.rq-backup p{font-size:13px;line-height:1.6;color:var(--ondark);max-width:300px;}
+
+/* ============ Context ============ */
+.ctx-grid{display:flex;gap:24px;}
+.ctx-card{background:var(--bgsoft);border-radius:24px;padding:32px;flex:1;display:flex;flex-direction:column;gap:16px;}
+.ctx-card.dark{background:var(--ink);}
+.ctx-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+.ctx-stat{font-size:36px;font-weight:500;}
+.ctx-card.upf .ctx-stat{color:var(--blue);}
+.ctx-card.pa .ctx-stat{color:var(--blue2);}
+.ctx-card.dark .ctx-stat{color:#fff;}
+.ctx-label{font-size:14px;line-height:1.55;color:var(--text2);}
+.ctx-card.dark .ctx-label{color:var(--ondark);}
+.ctx-src{font-size:11px;font-weight:700;color:var(--muted);margin-top:auto;}
+.ctx-card.dark .ctx-src{color:var(--muted);}
+
+/* ============ Variables ============ */
+.vars{display:flex;gap:64px;background:#fff;}
+.vars-left{width:480px;display:flex;flex-direction:column;gap:24px;}
+.ds-pill{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:100px;height:36px;padding:0 14px;width:max-content;font-size:13px;}
+.ds-pill .k{font-size:10px;font-weight:700;color:var(--muted);}
+.vars-right{width:736px;background:var(--bgsoft);border-radius:24px;padding:32px;}
+.var-row{padding:20px 0;border-top:1px solid var(--line);}
+.var-row:first-child{border-top:none;padding-top:0;}
+.var-role{display:inline-flex;align-items:center;height:24px;border-radius:100px;padding:0 10px;font-size:10px;font-weight:700;color:#fff;margin-bottom:8px;}
+.var-name{font-size:20px;font-weight:700;color:var(--text);margin:4px 0;}
+.var-desc{font-size:13px;color:var(--text3);}
+
+/* ============ Pipeline (dark) ============ */
+.pipe{background:var(--ink);}
+.pipe .eyebrow{color:var(--blue2);}
+.pipe h2{color:#fff;}
+.pipe-grid{display:flex;gap:24px;}
+.step{background:var(--ink2);border-radius:24px;padding:32px;flex:1;display:flex;flex-direction:column;gap:20px;}
+.step-num{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--text);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.step h3{font-size:22px;font-weight:500;color:#fff;}
+.step p{font-size:14px;line-height:1.6;color:var(--ondark);}
+.step-out{font-size:12px;font-weight:700;color:var(--blue2);margin-top:auto;}
+
+/* ============ EDA ============ */
+.eda{display:flex;gap:48px;background:#fff;}
+.eda-left{width:480px;display:flex;flex-direction:column;gap:24px;}
+.eda-ctas{display:flex;flex-direction:column;gap:0;margin-top:auto;}
+.eda-right{width:736px;display:flex;flex-direction:column;gap:16px;}
+.eda-card{background:var(--bgsoft);border-radius:24px;padding:24px;}
+.eda-head{display:flex;align-items:center;justify-content:space-between;height:24px;}
+.eda-head .t{font-size:11px;font-weight:700;color:var(--text);}
+.eda-head .note{font-size:11px;color:var(--text3);}
+.boxplot{display:flex;align-items:center;height:180px;padding:24px 32px;}
+.whisker{height:1px;background:var(--ink);width:40px;}
+.box{flex:1;height:100px;background:rgba(0,99,224,.18);border:1px solid var(--blue);position:relative;margin:0;}
+.box .median{position:absolute;top:0;bottom:0;left:30%;width:4px;background:var(--blue);}
+.qq{display:flex;align-items:flex-end;gap:4px;height:140px;}
+.qq .d{width:8px;background:rgba(0,99,224,.6);border-radius:4px;}
+.resid{position:relative;height:140px;}
+.resid .ln{position:absolute;left:0;right:0;height:2px;background:rgba(230,59,64,.6);}
+.resid .d{position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(230,59,64,.6);}
+
+/* ============ Clustering ============ */
+.clust{background:var(--bgsoft);}
+.clust-head{display:flex;align-items:flex-start;margin-bottom:48px;}
+.clust-head .left{flex:1;display:flex;flex-direction:column;gap:16px;}
+.clust-head .left .lead{max-width:720px;}
+.method-card{background:#fff;border-radius:20px;padding:20px;width:320px;display:flex;flex-direction:column;gap:8px;}
+.method-card .m-eyebrow{font-size:10px;font-weight:700;color:var(--muted);}
+.method-card .m-name{font-size:16px;font-weight:700;color:var(--text);}
+.method-card .m-body{font-size:12px;line-height:1.5;color:var(--text3);}
+.clust-grid{display:flex;gap:24px;}
+.clust-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;flex:1;display:flex;flex-direction:column;gap:20px;}
+.clust-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;flex:0 0 auto;}
+.clust-head-inner{display:flex;align-items:center;gap:12px;}
+.clust-tag{font-size:10px;font-weight:700;color:var(--blue);}
+.clust-title{font-size:22px;font-weight:500;color:var(--text);}
+.clust-desc{font-size:13px;line-height:1.6;color:var(--text3);}
+.clust-stats{display:flex;flex-direction:column;}
+.clust-stat-row{display:flex;justify-content:space-between;align-items:center;height:36px;border-top:1px solid var(--line);padding:8px 0;font-size:13px;}
+.clust-stat-row .l{color:var(--text2);}
+.clust-stat-row .v{font-weight:700;color:var(--text);}
+.clust-model{background:var(--bgsoft);border-radius:16px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.clust-model .l{display:flex;flex-direction:column;gap:2px;}
+.clust-model .l .e{font-size:10px;font-weight:700;color:var(--text3);}
+.clust-model .l .n{font-size:16px;font-weight:700;color:var(--text);}
+.clust-model .check{width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+
+/* ============ Modelling ============ */
+.model-grid{display:flex;gap:24px;}
+.model-card{background:var(--bgsoft);border-radius:24px;padding:32px;flex:1;display:flex;flex-direction:column;gap:16px;}
+.model-card.dark{background:var(--ink);}
+.model-tag{display:inline-flex;align-items:center;height:28px;border-radius:100px;padding:0 12px;font-size:11px;font-weight:700;color:#fff;width:max-content;}
+.model-card h3{font-size:24px;font-weight:500;color:var(--text);}
+.model-card.dark h3{color:#fff;}
+.model-card .body{font-size:13px;line-height:1.6;color:var(--text3);flex:1;}
+.model-card.dark .body{color:var(--ondark);}
+.model-card .pros{font-size:12px;font-weight:700;color:var(--text);}
+.model-card.dark .pros{color:#fff;}
+
+/* ============ Conclusion (dark) ============ */
+.concl{background:var(--ink);}
+.concl .eyebrow{color:var(--blue2);}
+.concl h2{color:#fff;}
+.concl-grid{display:flex;gap:24px;}
+.concl-card{background:var(--ink2);border-radius:24px;padding:32px;flex:1;display:flex;flex-direction:column;gap:16px;}
+.concl-num{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--text);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+.concl-card h3{font-size:18px;font-weight:500;line-height:1.4;color:#fff;max-width:376px;}
+.concl-card p{font-size:13px;line-height:1.6;color:var(--ondark);max-width:376px;}
+.refs{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:12px;}
+.refs .r-eyebrow{font-size:10px;font-weight:700;color:var(--muted);}
+.refs p{font-size:13px;line-height:1.7;color:var(--ondark);}
+
+/* ============ Team ============ */
+.team-head{display:flex;align-items:flex-start;margin-bottom:40px;}
+.team-head .left{flex:1;display:flex;flex-direction:column;gap:16px;}
+.team-head .left .lead{max-width:720px;}
+.course-card{background:var(--bgsoft);border-radius:20px;padding:24px;width:320px;display:flex;flex-direction:column;gap:12px;}
+.course-card .u{font-size:10px;font-weight:700;color:var(--muted);}
+.course-pill{display:inline-flex;align-items:center;height:32px;border-radius:100px;padding:0 12px;font-size:12px;font-weight:700;color:#fff;width:max-content;}
+.team-row{display:flex;flex-wrap:wrap;gap:16px;}
+.member{background:var(--bgsoft);border-radius:20px;padding:16px;width:400px;display:flex;align-items:center;gap:14px;}
+.avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;flex:0 0 auto;}
+.member-text{display:flex;flex-direction:column;gap:2px;}
+.member-name{font-size:13px;font-weight:700;color:var(--text);}
+.member-role{font-size:11px;color:var(--text3);}
+
+/* ============ Footer ============ */
+footer{background:var(--bgsoft);padding:56px 0;}
+.footer-top{display:flex;align-items:flex-start;}
+.footer-left{width:480px;display:flex;flex-direction:column;gap:16px;}
+.footer-logo{display:flex;align-items:center;gap:12px;}
+.footer-logo .mark{width:32px;height:32px;background:var(--blue);border-radius:8px;}
+.footer-logo b{font-size:14px;font-weight:700;color:var(--text);}
+.footer-tagline{font-size:13px;line-height:1.6;color:var(--text3);max-width:440px;}
+.footer-right{display:flex;gap:64px;margin-left:auto;}
+.fcol{display:flex;flex-direction:column;gap:12px;width:160px;}
+.fcol .t{font-size:10px;font-weight:700;color:var(--text);}
+.fcol a,.fcol span{font-size:13px;color:var(--text3);text-decoration:none;cursor:pointer;}
+.footer-bottom{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+.copyright{font-size:12px;color:var(--text3);}
+.lang-row{display:flex;gap:4px;font-size:12px;}
+.lang-row b{color:var(--text);font-weight:600;cursor:pointer;}
+.lang-row span{color:var(--muted);cursor:pointer;}
+
+a{cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Promo + Nav -->
+  <div class="promo">
+    <span class="t" data-en="STAT3888 — Group 1 — The University of Sydney" data-zh="STAT3888 — 第一组 — 悉尼大学"></span>
+    <span class="dot">•</span>
+    <span class="t" data-en="Semester 2 · 2023" data-zh="第二学期 · 2023"></span>
+  </div>
+
+  <nav class="nav" id="top">
+    <a class="logo" href="#top">
+      <span class="logo-mark"></span>
+      <span class="logo-text">
+        <b>STAT3888</b>
+        <span class="t" data-en="Group 1 · Portfolio" data-zh="第一组 · 作品集"></span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#research" class="t" data-en="Research" data-zh="研究"></a>
+      <a href="#data" class="t" data-en="Data" data-zh="数据"></a>
+      <a href="#analysis" class="t" data-en="Analysis" data-zh="分析"></a>
+      <a href="#findings" class="t" data-en="Findings" data-zh="发现"></a>
+      <a href="#team" class="t" data-en="Team" data-zh="团队"></a>
+    </div>
+    <div class="nav-cta">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5D6C7B" stroke-width="2"/><path d="M16 16L20 20" stroke="#5D6C7B" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="t" data-en="Search figures or code" data-zh="搜索图表或代码"></span>
+      </div>
+      <a class="cta-btn t" data-en="View R Markdown" data-zh="查看 R Markdown" href="#"></a>
+      <div class="lang-toggle" id="langToggle">
+        <button data-lang="en" class="on">EN</button>
+        <button data-lang="zh">中文</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-left">
+      <span class="hero-tag"><i></i><span class="t" data-en="Research · Statistics · Nutrition" data-zh="研究 · 统计 · 营养"></span></span>
+      <h1 class="t" data-en="Investigating how ultra-processed food &amp; physical activity interact to shape obesity risk." data-zh="探究超加工食品与身体活动如何相互作用，进而影响肥胖风险。"></h1>
+      <p class="hero-sub t" data-en="A cross-disciplinary analysis of 7,872 Australian adults. We cluster the population by socio-demographic profile, then compare three regression families — Linear, Robust Linear, and GAM — to surface where UPF and exercise genuinely interact, and where their effects fade."
+        data-zh="对 7,872 名澳大利亚成年人进行的跨学科分析。我们按社会人口特征对人群进行聚类，再比较三类回归模型——线性、稳健线性和 GAM——以揭示超加工食品与运动真正发生交互作用的地方，以及效应消退的地方。"></p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary t" data-en="Read the analysis" data-zh="阅读分析" href="#research"></a>
+        <a class="btn btn-ghost t" data-en="Download full report (PDF)" data-zh="下载完整报告（PDF）" href="#"></a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="visual-head">
+        <span class="visual-eyebrow">FIGURE 01</span>
+        <span class="visual-pill"><i></i><span class="t" data-en="BMI distribution" data-zh="BMI 分布"></span></span>
+      </div>
+      <div class="chart-block">
+        <div class="chart-title t" data-en="BMI distribution across 7,872 respondents" data-zh="7,872 名受访者的 BMI 分布"></div>
+        <div class="bars">
+          <div class="b" style="height:22px"></div><div class="b" style="height:36px"></div><div class="b" style="height:60px"></div><div class="b" style="height:96px"></div><div class="b" style="height:138px"></div><div class="b" style="height:168px"></div><div class="b" style="height:178px"></div><div class="b" style="height:168px"></div><div class="b" style="height:142px"></div><div class="b" style="height:110px"></div><div class="b" style="height:78px"></div><div class="b" style="height:50px"></div><div class="b" style="height:28px"></div>
+        </div>
+        <div class="axis"><span>15</span><span>23.6</span><span class="med">26.8</span><span class="mean">27.5</span><span>30.5</span><span>64.8</span></div>
+      </div>
+      <div class="chart-stats">
+        <div class="stat"><span class="l t" data-en="Mean" data-zh="均值"></span><span class="v">27.5</span></div>
+        <div class="stat"><span class="l t" data-en="Median" data-zh="中位数"></span><span class="v">26.8</span></div>
+        <div class="stat"><span class="l">n</span><span class="v">7,872</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section class="rq" id="research">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">01 — <span class="t" data-en="RESEARCH QUESTION" data-zh="研究问题"></span></span>
+        <h2 class="t" data-en="Two questions. One about the food–exercise–obesity triangle, the other as a backup." data-zh="两个问题。一个关于饮食—运动—肥胖三角，另一个作为备选。"></h2>
+      </div>
+      <div class="rq-grid">
+        <div class="rq-main">
+          <span class="pill blue t" data-en="PRIMARY" data-zh="主问题"></span>
+          <h3 class="t" data-en="How does consumption of ultra-processed food and physical activity interact to affect obesity risk?" data-zh="超加工食品摄入与身体活动如何相互作用、进而影响肥胖风险？"></h3>
+          <p class="t" data-en="We focus on whether the joint effect of UPF intake and exercise departs from their individual contributions — i.e. whether high physical activity can buffer the weight-gain impact of a heavily-processed diet, or whether both effects stack additively."
+             data-zh="我们关注超加工食品摄入与运动的联合效应是否偏离二者的单独贡献——即高强度身体活动能否缓冲高度加工饮食带来的增重影响，还是两种效应只是简单叠加。"></p>
+        </div>
+        <div class="rq-backup">
+          <span class="pill green t" data-en="BACKUP" data-zh="备选"></span>
+          <h3 class="t" data-en="What characteristics separate late eaters from early eaters — and can those characteristics predict obesity?" data-zh="晚食者与早食者有何特征差异——这些特征能否预测肥胖？"></h3>
+          <p class="t" data-en="A secondary angle: timing of food intake, sleep, and dietary patterns as potential predictors of obesity — kept in reserve if the primary analysis runs out of signal."
+             data-zh="另一个切入角度：进食时间、睡眠与饮食模式作为肥胖的潜在预测因素——若主分析信号不足，则作为备选方案。"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Context (Data) -->
+  <section class="ctx" id="data">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">02 — <span class="t" data-en="WHY IT MATTERS" data-zh="为何重要"></span></span>
+        <h2 class="t" data-en="Two lifestyle forces, one obesity epidemic." data-zh="两种生活方式力量，一场肥胖流行。"></h2>
+        <p class="lead t" data-en="UPF intake and physical inactivity rose in parallel with global obesity. Australia alone faces a projected $87.7B economic burden by 2032, with 67% of adults already overweight or obese. Each factor is documented independently — but their combined effect is poorly understood."
+          data-zh="超加工食品摄入与缺乏运动与全球肥胖同步上升。仅澳大利亚一国，预计到 2032 年将面临 877 亿美元的经济负担，67% 的成年人已经超重或肥胖。每个因素都有独立的文献记载——但二者的联合效应却鲜为人知。"></p>
+      </div>
+      <div class="ctx-grid">
+        <div class="ctx-card upf">
+          <div class="ctx-icon" style="background:rgba(0,99,224,.12)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#0063E0" stroke-width="2"/></svg></div>
+          <div class="ctx-stat">0.97 kg/m²</div>
+          <div class="ctx-label t" data-en="higher BMI for adults in the highest UPF quintile vs. the lowest (Machado et al., 2020)" data-zh="最高 UPF 五分位组成年人的 BMI 较最低组更高（Machado 等，2020）"></div>
+          <div class="ctx-src t" data-en="Source — Machado et al., Nutrition &amp; Diabetes" data-zh="来源 — Machado 等，《营养与糖尿病》"></div>
+        </div>
+        <div class="ctx-card pa">
+          <div class="ctx-icon" style="background:rgba(24,118,242,.12)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="#1876F2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="#1876F2" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="ctx-stat">476 min/wk</div>
+          <div class="ctx-label t" data-en="PA threshold above which the UPF–BMI link weakened in active young adults (Capra et al., 2022)" data-zh="活跃年轻成人中 UPF–BMI 关联减弱的身体活动阈值（Capra 等，2022）"></div>
+          <div class="ctx-src t" data-en="Source — Capra et al., J. Exercise &amp; Nutrition" data-zh="来源 — Capra 等，《运动与营养杂志》"></div>
+        </div>
+        <div class="ctx-card dark">
+          <div class="ctx-stat">Synergy?</div>
+          <div class="ctx-label t" data-en="Whether the two effects compound, cancel, or simply coexist — the gap this project tries to close." data-zh="两种效应究竟相互叠加、相互抵消，还是简单共存——这正是本项目试图填补的空白。"></div>
+          <div class="ctx-src t" data-en="Evidence gap — Hall 2019 · Jakicic 2018" data-zh="证据空白 — Hall 2019 · Jakicic 2018"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variables -->
+  <section class="vars">
+    <div class="wrap" style="display:flex;gap:64px;">
+      <div class="vars-left">
+        <span class="eyebrow">03 — <span class="t" data-en="VARIABLES &amp; DATA" data-zh="变量与数据"></span></span>
+        <h2 class="t" data-en="Four variable families, drawn from the 2019 Nutrition &amp; Physical Activity Survey." data-zh="四类变量，取自 2019 年营养与身体活动调查。"></h2>
+        <p class="lead t" data-en="Our response is BMI, computed from measured height and weight. Two predictor families — UPF dietary share and physical-activity minutes — do the explanatory heavy lifting. Age, sex, socio-economic index, smoking and country of birth are held as confounders."
+          data-zh="我们的响应变量是 BMI，由实测身高体重计算得出。两类预测变量——超加工食品膳食占比与身体活动时长——承担主要解释作用。年龄、性别、社会经济指数、吸烟和出生国作为混杂因素控制。"></p>
+        <div class="ds-pill"><span class="k t" data-en="DATASET" data-zh="数据集"></span><span class="t" data-en="2019 · n = 7,872 · 13 final variables" data-zh="2019 · n = 7,872 · 13 个最终变量"></span></div>
+      </div>
+      <div class="vars-right">
+        <div class="var-row">
+          <span class="var-role" style="background:var(--blue)">RESPONSE</span>
+          <div class="var-name">BMI — BMISC</div>
+          <div class="var-desc t" data-en="Body Mass Index, computed from measured height and weight." data-zh="身体质量指数，由实测身高与体重计算得出。"></div>
+        </div>
+        <div class="var-row">
+          <span class="var-role" style="background:var(--ink)">EXPLANATORY</span>
+          <div class="var-name">UPF share · PA minutes</div>
+          <div class="var-desc t" data-en="Proportion of total energy from ultra-processed food (NOVA classification). Total / moderate / vigorous PA minutes (EXLWTBC, EXLWMBC, EXLWVBC)." data-zh="来自超加工食品的能量占总能量的比例（NOVA 分类）。总/中强度/高强度身体活动时长（EXLWTBC, EXLWMBC, EXLWVBC）。"></div>
+        </div>
+        <div class="var-row">
+          <span class="var-role" style="background:var(--green)">CONFOUNDERS</span>
+          <div class="var-name">Age · Sex · IRSD · Smoking · COB</div>
+          <div class="var-desc t" data-en="AGEC, SEX, SF2SA1QN (Index of Relative Socio-Economic Disadvantage), SMKSTAT, COBBC — adjusted in the model." data-zh="AGEC, SEX, SF2SA1QN（相对社会经济劣势指数）, SMKSTAT, COBBC — 在模型中加以校正。"></div>
+        </div>
+        <div class="var-row">
+          <span class="var-role" style="background:var(--amber)">EXCLUSIONS</span>
+          <div class="var-name">Under-16s · Pregnant · Misreporters</div>
+          <div class="var-desc t" data-en="Excluded: children &lt;16, pregnant respondents, under-reporters (energy &lt; 1.2×BMR) and extreme over-reporters (&gt; 16,500 kJ/day)." data-zh="排除对象：16 岁以下儿童、孕妇、低报者（能量 &lt; 1.2×BMR）以及极端高报者（&gt; 16,500 kJ/天）。"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline (Analysis) -->
+  <section class="pipe" id="analysis">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">04 — <span class="t" data-en="DATA CLEANING" data-zh="数据清洗"></span></span>
+        <h2 class="t" data-en="Three merges from raw to ready." data-zh="三次合并，从原始数据到就绪数据。"></h2>
+      </div>
+      <div class="pipe-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3 class="t" data-en="Biomedical cleaning" data-zh="生物医学数据清洗"></h3>
+          <p class="t" data-en="Convert PA columns to numeric, recode 9996/9999 to NA, and complete-case across chosen variables." data-zh="将身体活动列转换为数值型，将 9996/9999 重编码为 NA，并对所选变量做完整案例分析。"></p>
+          <span class="step-out t" data-en="Final frame — selected_data" data-zh="最终数据框 — selected_data"></span>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3 class="t" data-en="UPF tagging (NOVA)" data-zh="UPF 标注（NOVA）"></h3>
+          <p class="t" data-en="Match food records to AUSNUT 2011-13 codes containing commercial / instant / takeaway / fast-food / flavoured labels — per NOVA class IV criteria." data-zh="将食物记录匹配到包含商业/即食/外卖/快餐/调味标签的 AUSNUT 2011-13 编码——依据 NOVA 第四类标准。"></p>
+          <span class="step-out t" data-en="Per-person UPF energy share" data-zh="人均 UPF 能量占比"></span>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3 class="t" data-en="Merge &amp; filter" data-zh="合并与筛选"></h3>
+          <p class="t" data-en="Left-join biomedical to UPF share on ABSPID, drop non-respondents, exclude under-16s and extreme misreporters." data-zh="以 ABSPID 为键将生物医学数据左连接到 UPF 占比，剔除未应答者，排除 16 岁以下及极端误报者。"></p>
+          <span class="step-out t" data-en="cleaned_final_dat — 7,872 × 13" data-zh="cleaned_final_dat — 7,872 × 13"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDA -->
+  <section class="eda">
+    <div class="wrap" style="display:flex;gap:48px;">
+      <div class="eda-left">
+        <span class="eyebrow">05 — <span class="t" data-en="INITIAL ANALYSIS" data-zh="初步分析"></span></span>
+        <h2 class="t" data-en="BMI is near-normal, but the predictors barely move it — in the unadjusted view." data-zh="BMI 接近正态，但在未校正的视角下，预测变量几乎无法解释其变化。"></h2>
+        <p class="lead t" data-en="Boxplot and histogram confirm right-skewed but largely normal BMI. Correlation pairs and the pair-plot show weak linear relationships — driving us toward clustering and richer model classes." data-zh="箱线图与直方图确认 BMI 右偏但大体呈正态分布。相关对与散点图矩阵显示较弱的线性关系——这促使我们转向聚类分析和更丰富的模型类别。"></p>
+        <div class="eda-ctas" style="display:flex;flex-direction:column;gap:12px;">
+          <a class="btn btn-primary t" data-en="Explore assumption checks" data-zh="查看假设检验" href="#"></a>
+          <a class="btn btn-ghost t" data-en="See correlation matrix" data-zh="查看相关矩阵" href="#"></a>
+        </div>
+      </div>
+      <div class="eda-right">
+        <div class="eda-card">
+          <div class="eda-head"><span class="t">FIGURE 02 — <span class="t" data-en="BMI boxplot (n = 7,872)" data-zh="BMI 箱线图（n = 7,872）"></span></span><span class="note t" data-en="Right-skewed, mild outliers" data-zh="右偏，轻微离群值"></span></div>
+          <div class="boxplot">
+            <div class="whisker"></div>
+            <div class="box"><div class="median"></div></div>
+            <div class="whisker"></div>
+          </div>
+          <div class="axis" style="padding:0 32px;"><span>15.2</span><span>23.6</span><span class="med">26.8</span><span class="mean">27.5</span><span>30.5</span><span>64.8</span></div>
+        </div>
+        <div class="eda-card" style="display:flex;gap:16px;">
+          <div style="flex:1;">
+            <div class="eda-head"><span class="t">FIGURE 03 — <span class="t" data-en="Normality (QQ)" data-zh="正态性（QQ 图）"></span></span></div>
+            <div class="qq">
+              <div class="d" style="height:8px"></div><div class="d" style="height:16px"></div><div class="d" style="height:26px"></div><div class="d" style="height:38px"></div><div class="d" style="height:52px"></div><div class="d" style="height:68px"></div><div class="d" style="height:84px"></div><div class="d" style="height:100px"></div><div class="d" style="height:112px"></div><div class="d" style="height:120px"></div><div class="d" style="height:124px"></div><div class="d" style="height:122px"></div><div class="d" style="height:116px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text3);margin-top:8px;" class="t" data-en="Heavy tails · n &gt; 30 → CLT holds" data-zh="重尾 · n &gt; 30 → 中心极限定理成立"></div>
+          </div>
+          <div style="flex:1;">
+            <div class="eda-head"><span class="t">FIGURE 04 — <span class="t" data-en="Residuals vs Fitted" data-zh="残差 vs 拟合值"></span></span></div>
+            <div class="resid">
+              <div class="ln" style="top:38px"></div>
+              <div class="d" style="left:6%;top:50px"></div><div class="d" style="left:14%;top:30px"></div><div class="d" style="left:22%;top:62px"></div><div class="d" style="left:30%;top:44px"></div><div class="d" style="left:38%;top:18px"></div><div class="d" style="left:46%;top:56px"></div><div class="d" style="left:54%;top:34px"></div><div class="d" style="left:62%;top:68px"></div><div class="d" style="left:70%;top:26px"></div><div class="d" style="left:78%;top:50px"></div><div class="d" style="left:86%;top:40px"></div><div class="d" style="left:94%;top:58px"></div>
+              <div class="ln" style="top:100px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text3);margin-top:8px;" class="t" data-en="Spread is uniform" data-zh="分布均匀"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clustering -->
+  <section class="clust">
+    <div class="wrap">
+      <div class="clust-head">
+        <div class="left">
+          <span class="eyebrow">06 — <span class="t" data-en="CLUSTERING" data-zh="聚类"></span></span>
+          <h2 class="t" data-en="Three socio-demographic clusters, three different stories." data-zh="三个社会人口学聚类，三种不同的故事。"></h2>
+          <p class="lead t" data-en="Hierarchical clustering (Ward's linkage, k = 3) on Age · Sex · IRSD · Smoking · Country of birth — controlling for confounders before modelling." data-zh="基于年龄 · 性别 · IRSD · 吸烟 · 出生国进行层次聚类（Ward 连接法，k = 3）——在建模前对混杂因素加以控制。"></p>
+        </div>
+        <div class="method-card">
+          <span class="m-eyebrow">METHOD</span>
+          <span class="m-name t" data-en="Ward's hierarchical clustering" data-zh="Ward 层次聚类"></span>
+          <span class="m-body t" data-en="Distance matrix over demographic columns. Cut at k = 3 to surface age–socio-economic structure in the population." data-zh="基于人口学列计算距离矩阵。在 k = 3 处切分，以揭示人群中的年龄—社会经济结构。"></span>
+        </div>
+      </div>
+      <div class="clust-grid">
+        <div class="clust-card">
+          <div class="clust-head-inner">
+            <div class="clust-num" style="background:var(--blue)">01</div>
+            <div><div class="clust-tag">CLUSTER 1</div><div class="clust-title t" data-en="Middle-aged adults" data-zh="中年成人"></div></div>
+          </div>
+          <div class="clust-desc t" data-en="Mean age ~50. The benchmark cluster — average waist, average BMI, sitting in the middle of the UPF distribution." data-zh="平均年龄约 50 岁。基准聚类——腰围、BMI 均为平均水平，处于 UPF 分布的中间位置。"></div>
+          <div class="clust-stats">
+            <div class="clust-stat-row"><span class="l t" data-en="BMI · Male / Female" data-zh="BMI · 男 / 女"></span><span class="v">27.3 / 26.4</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="Waist · Male / Female" data-zh="腰围 · 男 / 女"></span><span class="v">97.4 / 87.2 cm</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="UPF share · Male / Female" data-zh="UPF 占比 · 男 / 女"></span><span class="v">34.1% / 32.5%</span></div>
+          </div>
+          <div class="clust-model"><div class="l"><span class="e t" data-en="BEST MODEL" data-zh="最佳模型"></span><span class="n">GAM (RMSE)</span></div><div class="check">✓</div></div>
+        </div>
+        <div class="clust-card">
+          <div class="clust-head-inner">
+            <div class="clust-num" style="background:var(--blue2)">02</div>
+            <div><div class="clust-tag">CLUSTER 2</div><div class="clust-title t" data-en="Younger adults" data-zh="年轻成人"></div></div>
+          </div>
+          <div class="clust-desc t" data-en="Mean age ~32. The healthiest cluster — lower BMI, smaller waist, slightly lower UPF share. The strongest test of whether UPF–PA effects still hold." data-zh="平均年龄约 32 岁。最健康的聚类——BMI 更低、腰围更小、UPF 占比略低。这是检验 UPF–PA 效应是否仍然成立的最有力测试。"></div>
+          <div class="clust-stats">
+            <div class="clust-stat-row"><span class="l t" data-en="BMI · Male / Female" data-zh="BMI · 男 / 女"></span><span class="v">25.9 / 24.8</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="Waist · Male / Female" data-zh="腰围 · 男 / 女"></span><span class="v">91.7 / 82.3 cm</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="UPF share · Male / Female" data-zh="UPF 占比 · 男 / 女"></span><span class="v">32.4% / 30.3%</span></div>
+          </div>
+          <div class="clust-model"><div class="l"><span class="e t" data-en="BEST MODEL" data-zh="最佳模型"></span><span class="n">Linear (RMSE)</span></div><div class="check">✓</div></div>
+        </div>
+        <div class="clust-card">
+          <div class="clust-head-inner">
+            <div class="clust-num" style="background:var(--purple)">03</div>
+            <div><div class="clust-tag">CLUSTER 3</div><div class="clust-title t" data-en="Older adults" data-zh="老年成人"></div></div>
+          </div>
+          <div class="clust-desc t" data-en="Mean age ~69. Highest waist circumference, longest exercise minutes, heaviest UPF share — the highest-risk subgroup." data-zh="平均年龄约 69 岁。腰围最大、运动时长最长、UPF 占比最高——风险最高的亚群。"></div>
+          <div class="clust-stats">
+            <div class="clust-stat-row"><span class="l t" data-en="BMI · Male / Female" data-zh="BMI · 男 / 女"></span><span class="v">27.5 / 27.0</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="Waist · Male / Female" data-zh="腰围 · 男 / 女"></span><span class="v">100.4 / 90.3 cm</span></div>
+            <div class="clust-stat-row"><span class="l t" data-en="UPF share · Male / Female" data-zh="UPF 占比 · 男 / 女"></span><span class="v">35.3% / 30.1%</span></div>
+          </div>
+          <div class="clust-model"><div class="l"><span class="e t" data-en="BEST MODEL" data-zh="最佳模型"></span><span class="n">Robust Linear (both)</span></div><div class="check">✓</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modelling -->
+  <section class="model" id="model">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">07 — <span class="t" data-en="MODELLING" data-zh="建模"></span></span>
+        <h2 class="t" data-en="Three regression families, with interaction terms between UPF and physical activity." data-zh="三类回归模型，均包含超加工食品与身体活动的交互项。"></h2>
+        <p class="lead t" data-en="Each model receives the same predictors: PROCESS (UPF share), EXLWMBC, EXLWVBC, plus PROCESS × PA interaction terms. Cross-validated (k = 5, repeats = 5) on every cluster to compare RMSE and prediction-deviation ratio." data-zh="每个模型使用相同的预测变量：PROCESS（UPF 占比）、EXLWMBC、EXLWVBC，以及 PROCESS × PA 交互项。对每个聚类进行交叉验证（k = 5，重复 5 次），以比较 RMSE 与预测偏差比。"></p>
+      </div>
+      <div class="model-grid">
+        <div class="model-card">
+          <span class="model-tag" style="background:var(--blue)">MODEL 01</span>
+          <h3>Linear regression</h3>
+          <div class="body t" data-en="BMI ~ PROCESS + EXLWMBC + EXLWVBC + EXLWVBC:PROCESS + PROCESS:EXLWMBC. The transparent baseline — easy to interpret, but vulnerable to outliers." data-zh="BMI ~ PROCESS + EXLWMBC + EXLWVBC + EXLWVBC:PROCESS + PROCESS:EXLWMBC。透明的基线模型——易于解释，但对离群值敏感。"></div>
+          <div class="pros t" data-en="Interpretable · Fast · Standard errors" data-zh="可解释 · 快速 · 标准误"></div>
+        </div>
+        <div class="model-card">
+          <span class="model-tag" style="background:var(--ink)">MODEL 02</span>
+          <h3>Robust linear</h3>
+          <div class="body t" data-en="Same formula via rlm() — down-weights extreme BMI observations. Important where the BMI distribution is heavy-tailed (Cluster 1 &amp; 3)." data-zh="同一公式通过 rlm() 拟合——对极端 BMI 观测值降权。在 BMI 分布呈重尾时尤为重要（聚类 1 和 3）。"></div>
+          <div class="pros t" data-en="Outlier-resistant · Stable coefficients" data-zh="抗离群值 · 系数稳定"></div>
+        </div>
+        <div class="model-card dark">
+          <span class="model-tag" style="background:var(--green)">MODEL 03</span>
+          <h3>GAM (smooth)</h3>
+          <div class="body t" data-en="Smoothed splines for each PA term plus tensor interactions s(PROCESS, EXLWMBC) and s(PROCESS, EXLWVBC) — captures the dose–response shape." data-zh="对每个 PA 项使用平滑样条，并加入张量交互 s(PROCESS, EXLWMBC) 和 s(PROCESS, EXLWVBC)——捕捉剂量—反应形态。"></div>
+          <div class="pros t" data-en="Non-linear · Interaction surfaces" data-zh="非线性 · 交互曲面"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion (Findings) -->
+  <section class="concl" id="findings">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">08 — <span class="t" data-en="KEY FINDINGS" data-zh="关键发现"></span></span>
+        <h2 class="t" data-en="What the data is telling us — and what comes next." data-zh="数据告诉我们什么——以及下一步的方向。"></h2>
+      </div>
+      <div class="concl-grid">
+        <div class="concl-card">
+          <div class="concl-num">01</div>
+          <h3 class="t" data-en="BMI distribution is forgiving at the population level" data-zh="人口层面的 BMI 分布较为温和"></h3>
+          <p class="t" data-en="Median 26.8, mean 27.5 — only mildly right-skewed. CLT means we can still trust linear-model inference at n = 7,872." data-zh="中位数 26.8，均值 27.5——仅轻微右偏。中心极限定理意味着在 n = 7,872 时仍可信任线性模型的推断。"></p>
+        </div>
+        <div class="concl-card">
+          <div class="concl-num">02</div>
+          <h3 class="t" data-en="Socio-demographic clusters pick the model — not vice versa" data-zh="是社会人口学聚类决定了模型——而非相反"></h3>
+          <p class="t" data-en="GAM fits cluster 1 best, LM fits cluster 2, RLM wins cluster 3. The 'right' model depends on whose BMI we are predicting." data-zh="GAM 最适合聚类 1，LM 适合聚类 2，RLM 在聚类 3 中胜出。所谓「正确」的模型，取决于我们在预测谁的 BMI。"></p>
+        </div>
+        <div class="concl-card">
+          <div class="concl-num">03</div>
+          <h3 class="t" data-en="Next step: ANOVA, decision trees, post-hoc tests" data-zh="下一步：ANOVA、决策树、事后检验"></h3>
+          <p class="t" data-en="Compare cluster coefficients via ANOVA, grow a decision tree on PROCESS × PA buckets, and run post-hoc comparisons to pin down where the UPF–PA interaction actually lives." data-zh="通过 ANOVA 比较聚类系数，基于 PROCESS × PA 分桶构建决策树，并进行事后比较，以锁定 UPF–PA 交互作用的真正位置。"></p>
+        </div>
+      </div>
+      <div class="refs">
+        <span class="r-eyebrow t" data-en="KEY REFERENCES" data-zh="关键参考文献"></span>
+        <p>Hall et al. (2019) — Cell Metabolism · Machado et al. (2020) — Nutrition &amp; Diabetes · Capra et al. (2022) — J. Exercise &amp; Nutrition</p>
+        <p>Jakicic et al. (2018) — Clinical Chemistry · Fan et al. (2013) — Am. J. Health Promotion · Monteiro et al. (2019) — Public Health Nutrition</p>
+        <p>Miclotte &amp; Van de Wiele (2020) — Crit. Rev. Food Sci. Nutr · Food Standards Australia New Zealand (2014) — AUSNUT 2011-13</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" id="team">
+    <div class="wrap">
+      <div class="team-head">
+        <div class="left">
+          <span class="eyebrow">09 — <span class="t" data-en="GROUP 1" data-zh="第一组"></span></span>
+          <h2 class="t" data-en="The cross-disciplinary team behind this project." data-zh="本项目背后的跨学科团队。"></h2>
+          <p class="lead t" data-en="STAT3888 — Modelling &amp; Inference in Applied Statistics (The University of Sydney) × NUTM3888 — Nutrition &amp; Health Sciences. A deliberately interdisciplinary collaboration to test whether the two disciplines see the same obesity pattern." data-zh="STAT3888 — 应用统计建模与推断（悉尼大学）× NUTM3888 — 营养与健康科学。这是一次有意的跨学科合作，旨在检验两个学科是否看到相同的肥胖模式。"></p>
+        </div>
+        <div class="course-card">
+          <span class="u">UNITS</span>
+          <span class="course-pill" style="background:var(--blue)">STAT3888 · Sem 2 · 2023</span>
+          <span class="course-pill" style="background:var(--green)">NUTM3888 · Sem 2 · 2023</span>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="member"><div class="avatar" style="background:var(--blue)">AB</div><div class="member-text"><span class="member-name">Group 1 · 510408792</span><span class="member-role t" data-en="Statistics Lead" data-zh="统计负责人"></span></div></div>
+        <div class="member"><div class="avatar" style="background:var(--blue2)">CD</div><div class="member-text"><span class="member-name">Group 1 · 500711592</span><span class="member-role t" data-en="Modelling" data-zh="建模"></span></div></div>
+        <div class="member"><div class="avatar" style="background:var(--purple)">EF</div><div class="member-text"><span class="member-name">Group 1 · 500649631</span><span class="member-role t" data-en="Visualisation" data-zh="可视化"></span></div></div>
+        <div class="member"><div class="avatar" style="background:var(--green)">GH</div><div class="member-text"><span class="member-name">Group 1 · 510424334</span><span class="member-role t" data-en="Clustering" data-zh="聚类分析"></span></div></div>
+        <div class="member"><div class="avatar" style="background:var(--red)">IJ</div><div class="member-text"><span class="member-name">Group 1 · 500482599</span><span class="member-role t" data-en="Data Cleaning" data-zh="数据清洗"></span></div></div>
+        <div class="member"><div class="avatar" style="background:var(--ink)">KL</div><div class="member-text"><span class="member-name">Group 1 · 510461236</span><span class="member-role t" data-en="Literature" data-zh="文献综述"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-left">
+          <div class="footer-logo"><span class="mark"></span><b>STAT3888 × NUTM3888</b></div>
+          <p class="footer-tagline t" data-en="An interdisciplinary study on ultra-processed food, physical activity, and obesity risk across three socio-demographic clusters of Australian adults." data-zh="一项跨学科研究，探讨超加工食品、身体活动与肥胖风险在澳大利亚成年人三个社会人口学聚类中的关系。"></p>
+        </div>
+        <div class="footer-right">
+          <div class="fcol">
+            <span class="t">PROJECT</span>
+            <span class="t" data-en="Pitch report (PDF)" data-zh="路演报告（PDF）"></span>
+            <span class="t" data-en="R Markdown source" data-zh="R Markdown 源码"></span>
+            <span class="t" data-en="Final report" data-zh="最终报告"></span>
+          </div>
+          <div class="fcol">
+            <span class="t">UNITS</span>
+            <span>STAT3888</span>
+            <span>NUTM3888</span>
+            <span>University of Sydney</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copyright">© 2023 The University of Sydney · STAT3888 Data Science × NUTM3888 Nutrition</span>
+        <div class="lang-row">
+          <b data-lang="en" class="t" data-en="EN" data-zh="EN"></b>
+          <span>·</span>
+          <span data-lang="zh" class="t" data-en="中文" data-zh="中文"></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var LANG = 'en';
+  function applyLang(lang){
+    LANG = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      el.textContent = lang === 'zh' ? el.getAttribute('data-zh') : el.getAttribute('data-en');
+    });
+    document.querySelectorAll('#langToggle button').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+    });
+    try{ localStorage.setItem('upf-lang', lang); }catch(e){}
+  }
+  document.querySelectorAll('#langToggle button').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+  document.querySelectorAll('.lang-row [data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+  // restore saved language (default English)
+  var saved = null; try{ saved = localStorage.getItem('upf-lang'); }catch(e){}
+  applyLang(saved === 'zh' ? 'zh' : 'en');
+})();
+</script>
+</body>
+</html>
